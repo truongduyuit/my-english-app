@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MyEnglishApp</string>
+
+    <string name="tab_grammar_name">Grammar</string>
+    <string name="tab_test_name">Test</string>
+    <string name="tab_game_name">Game</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
