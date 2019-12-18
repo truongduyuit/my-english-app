@@ -1,5 +1,6 @@
 package com.example.myenglishapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -9,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setFragment(tabGrammarFragment);
+
+
+
+//        Intent intent = new Intent(MainActivity.this, GameKukubiScreenPlay.class);
+//        startActivity(intent);
     }
 
     private void setFragment(Fragment fragment)
