@@ -50,11 +50,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setFragment(tabGrammarFragment);
-
-
-
-//        Intent intent = new Intent(MainActivity.this, GameKukubiScreenPlay.class);
-//        startActivity(intent);
     }
 
     private void setFragment(Fragment fragment)

@@ -17,32 +17,31 @@ public class GameKukubiHelper {
         ArrayList<String> result = new ArrayList<>();
 
         // random vị trí màu khác biệt
-        int indexDef = random.nextInt(mau.length);
+        int indexDef = random.nextInt(n);
         answer = indexDef;
 
-        // random vi tri màu giống nhau
-        int indexCom;
+        // random màu khác biệt
+        int colorDef = random.nextInt(mau.length);
+
+        // random màu giống nhau
+        int colorCom;
         do {
-            indexCom = random.nextInt(mau.length);
+            colorCom = random.nextInt(mau.length);
         }
-        while (indexDef == indexCom);
+        while (colorDef == colorCom);
 
 
-        Log.d("def", "" + indexDef + "/" + indexCom);
-
-
-        // thêm mã màu vài list
+        // thêm mã màu vào list
         for (int i =0; i < n; i++)
         {
             if (i == indexDef)
             {
-                result.add(mau[indexDef]);
+                result.add(mau[colorDef]);
             }
             else
             {
-                result.add(mau[indexCom]);
+                result.add(mau[colorCom]);
             }
-
         }
 
         return result;
