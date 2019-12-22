@@ -60,6 +60,8 @@ public class GameKukubiMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GameKukubiMenu.this, GameKukubiScreenPlay.class);
+                intent.putExtra("level", level);
+                intent.putExtra("music", music);
                 startActivity(intent);
             }
         });

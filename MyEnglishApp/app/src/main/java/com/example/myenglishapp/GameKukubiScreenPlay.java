@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
@@ -45,6 +46,9 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
     ArrayList arr;
     Random random;
 
+
+    int level;
+    int music;
     int rows;
     int score;
     int bestScore;
@@ -52,6 +56,8 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
 
     CountDownTimer tm;
     TextToSpeech textToSpeech;
+    MediaPlayer mediaPlayer;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +68,33 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        // Lấy dữ liệu được truyển sang
+        Intent intent = getIntent();
+        level = intent.getIntExtra("level", 0);
+        music = intent.getIntExtra("music", 0);
+
+        if (music == 1)
+        {
+            mediaPlayer = MediaPlayer.create(this, R.raw.song);
+            mediaPlayer.start();
+        }
+
+
+        if (level == 0)
+        {
+            time = constants.timeLevel0;
+        }
+        else if (level == 1)
+        {
+            time = constants.timeLevel1;
+        }
+        else
+        {
+            time = constants.timeLevel2;
+        }
+
         score = constants.scoreDefault;
         rows = constants.rowsDefault;
-        time = constants.timeCountDownDefault;
 
         mapping();
         settingGameBoard(rows);
@@ -82,6 +112,11 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
         tv_time = (TextView) findViewById(R.id.tvTime);
         tv_score = (TextView) findViewById(R.id.tvScore);
         gv = (GridView) findViewById(R.id.game_board);
+
+        dialog  = new Dialog(this);
+        dialog.setContentView(R.layout.tab_game_losed);
+        dialog.setTitle("Answer questions !");
+        dialog.setCanceledOnTouchOutside(false);
     }
 
     private void settingGameBoard(int iRows)
@@ -102,7 +137,7 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
 
     private void setCountDownTime()
     {
-        tm = new CountDownTimer(5000, 100) {
+        tm = new CountDownTimer(time, 100) {
 
             public void onTick(long millisUntilFinished) {
                 tv_time.setText(millisUntilFinished / 1000+ "," + (millisUntilFinished % 1000) / 100  + " S");
@@ -117,7 +152,7 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
                 tv_time.setText("0.0 S");
 
                 showDialogLosed();
-                tm.cancel();
+                //tm.cancel();
             }
         };
     }
@@ -142,6 +177,8 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
                         setOnClick();
                     }
                 }
+                else
+                    showDialogLosed();
             }
         });
     }
@@ -182,14 +219,11 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
         }).start();
     }
 
+    //final Dialog
     private void showDialogLosed()
     {
-
-        final Dialog dialog  = new Dialog(this);
-        dialog.setContentView(R.layout.tab_game_losed);
-        dialog.setTitle("Answer questions !");
-
-        dialog.setCanceledOnTouchOutside(false);
+        if (mediaPlayer != null) mediaPlayer.pause();
+        tm.cancel();
 
         // ánh xạ
         Button btn_speak = (Button) dialog.findViewById(R.id.btn_speak);
@@ -241,16 +275,15 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
                 {
                     Toast.makeText(GameKukubiScreenPlay.this,"Ir's correct", Toast.LENGTH_SHORT).show();
                     setDataForGameBoard();
+                    if (!mediaPlayer.isPlaying()) mediaPlayer.start();
                     tm.start();
-
-                    dialog.cancel();
                 }
                 else
                 {
                     Toast.makeText(GameKukubiScreenPlay.this,"Ir's incorrect. GAME OVER !!!", Toast.LENGTH_LONG).show();
                     gameOver();
                 }
-
+                dialog.dismiss();
             }
         });
 
@@ -260,13 +293,16 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
                 if (ans_b == ans_true)
                 {
                     Toast.makeText(GameKukubiScreenPlay.this,"Ir's correct", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
+                    setDataForGameBoard();
+                    if (!mediaPlayer.isPlaying()) mediaPlayer.start();
+                    tm.start();
                 }
                 else
                 {
                     Toast.makeText(GameKukubiScreenPlay.this,"Ir's incorrect. GAME OVER !!!", Toast.LENGTH_LONG).show();
                     gameOver();
                 }
+                dialog.dismiss();
             }
         });
 
@@ -276,13 +312,16 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
                 if (ans_c == ans_true)
                 {
                     Toast.makeText(GameKukubiScreenPlay.this,"Ir's correct", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
+                    setDataForGameBoard();
+                    if (!mediaPlayer.isPlaying()) mediaPlayer.start();
+                    tm.start();
                 }
                 else
                 {
                     Toast.makeText(GameKukubiScreenPlay.this,"Ir's incorrect. GAME OVER !!!", Toast.LENGTH_LONG).show();
                     gameOver();
                 }
+                dialog.dismiss();
             }
         });
 
@@ -292,13 +331,16 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
                 if (ans_d == ans_true)
                 {
                     Toast.makeText(GameKukubiScreenPlay.this,"Ir's correct", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
+                    setDataForGameBoard();
+                    if (!mediaPlayer.isPlaying()) mediaPlayer.start();
+                    tm.start();
                 }
                 else
                 {
                     Toast.makeText(GameKukubiScreenPlay.this,"Ir's incorrect. GAME OVER !!!", Toast.LENGTH_LONG).show();
                     gameOver();
                 }
+                dialog.dismiss();
             }
         });
 
@@ -311,6 +353,8 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
         {
             myRef.child("bestscore").setValue(score);
         }
+        mediaPlayer.release();
+        mediaPlayer = null;
         finish();
     }
 }
