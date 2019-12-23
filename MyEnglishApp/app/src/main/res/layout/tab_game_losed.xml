@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="15dp"
+
+        android:background="@drawable/question_area"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+       >
+
+        <Button
+            android:id="@+id/btn_speak"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_speaker"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            />
+        <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/btn_speak"
+
+
+            android:text="How are you ? How are you ?"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            />
+
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_answer_a"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_red_border"
+
+        android:text="How are you ?"
+        android:textSize="10dp"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+
+        />
+
+    <Button
+        android:id="@+id/btn_answer_b"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_red_border"
+
+        android:gravity="center"
+        android:text="How are you ?"
+        android:textSize="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        />
+
+    <Button
+        android:id="@+id/btn_answer_c"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_red_border"
+
+        android:text="How are you ?"
+        android:textSize="10dp"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        />
+    <Button
+        android:id="@+id/btn_answer_d"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_red_border"
+
+        android:text="How are you ?"
+        android:textSize="10dp"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        />
+</LinearLayout>
