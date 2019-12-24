@@ -11,7 +11,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -24,8 +23,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -42,7 +39,7 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
     GridView gv;
     GameKukubiHelper helper = new GameKukubiHelper();
     GameKukubiConstants  constants = new GameKukubiConstants();
-    ArrayList<Question> listQues;
+    ArrayList<QuestionG> listQues;
     ArrayList arr;
     Random random;
 
@@ -185,7 +182,7 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
 
     private void getQuestionsFromFirebase()
     {
-        listQues = new ArrayList<>();
+        listQues = new ArrayList<QuestionG>();
 
         new Thread(new Runnable() {
             @Override
@@ -198,13 +195,13 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
 
                         for (DataSnapshot data: dataSnapshot.child("questions").getChildren())
                         {
-                            Question ques = new Question();
-                            ques.setQues(data.getValue(Question.class).getQues());
-                            ques.setAns_a(data.getValue(Question.class).getAns_a());
-                            ques.setAns_b(data.getValue(Question.class).getAns_b());
-                            ques.setAns_c(data.getValue(Question.class).getAns_c());
-                            ques.setAns_d(data.getValue(Question.class).getAns_d());
-                            ques.setAns_true(data.getValue(Question.class).getAns_true());
+                            QuestionG ques = new QuestionG();
+                            ques.setQues(data.getValue(QuestionG.class).getQues());
+                            ques.setAns_a(data.getValue(QuestionG.class).getAns_a());
+                            ques.setAns_b(data.getValue(QuestionG.class).getAns_b());
+                            ques.setAns_c(data.getValue(QuestionG.class).getAns_c());
+                            ques.setAns_d(data.getValue(QuestionG.class).getAns_d());
+                            ques.setAns_true(data.getValue(QuestionG.class).getAns_true());
 
                             listQues.add(ques);
                         }
@@ -236,7 +233,7 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
         // set data
         random = new Random();
         int index = random.nextInt(listQues.size());
-        Question ques = listQues.get(index);
+        QuestionG ques = listQues.get(index);
         final String quesion = ques.getQues();
         final String ans_a = ques.getAns_a();
         final String ans_b = ques.getAns_b();

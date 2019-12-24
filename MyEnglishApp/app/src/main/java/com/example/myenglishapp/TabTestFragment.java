@@ -39,7 +39,7 @@ public class TabTestFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btnStart = (Button) getActivity().findViewById((R.id.btnStart));
+        btnStart = (Button) getActivity().findViewById((R.id.button_start));
         btnStart.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
