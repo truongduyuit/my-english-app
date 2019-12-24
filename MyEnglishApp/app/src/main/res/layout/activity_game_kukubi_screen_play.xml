@@ -27,23 +27,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvTime"
-        android:layout_above="@+id/tvScore"
+        android:layout_above="@+id/layout_bot"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:columnWidth="5dp"
         />
-    <TextView
-        android:id="@+id/tvScore"
+    <LinearLayout
+        android:id="@+id/layout_bot"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textSize="35sp"
-        android:gravity="center"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        >
+        <TextView
+            android:id="@+id/tv_score_label"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:textSize="35sp"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
 
-        android:background="@color/colorPrimaryDark"
-        android:textColor="@color/colorWhite"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/colorWhite"
 
-        android:text="0"
-        />
+            android:text="Scores :"
+            />
+        <TextView
+            android:id="@+id/tvScore"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="35sp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/colorWhite"
+
+            android:text="0"
+            />
+    </LinearLayout>
+
 </RelativeLayout>
