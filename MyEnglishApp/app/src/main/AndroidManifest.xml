@@ -9,9 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".StartingScreenActivity"></activity>
+        <activity android:name=".QuizActivity" />
+
       
         <activity android:name=".tabGrammar.GrammarActivity"></activity>
         <activity android:name=".GameKukubiMenu"></activity>
+
         <activity android:name=".GameKukubiScreenPlay" />
         <activity android:name=".MainActivity">
             <intent-filter>

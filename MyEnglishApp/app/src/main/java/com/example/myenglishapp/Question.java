@@ -1,69 +1,143 @@
 package com.example.myenglishapp;
 
-public class Question {
-    private String ques;
-    private String ans_a;
-    private String ans_b;
-    private String ans_c;
-    private String ans_d;
-    private String ans_true;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    public Question(String ques, String ans_a, String ans_b, String ans_c, String ans_d, String ans_true) {
-        this.ques = ques;
-        this.ans_a = ans_a;
-        this.ans_b = ans_b;
-        this.ans_c = ans_c;
-        this.ans_d = ans_d;
-        this.ans_true = ans_true;
+public class Question implements Parcelable {
+    public static final String DIFFICULTY_EASY = "Easy";
+    public static final String DIFFICULTY_MEDIUM = "Medium";
+
+    private int id;
+    private String question;
+    private String option1;
+    private String option2;
+    private String option3;
+    private int answerNr;
+    private String difficulty;
+    private int categoryID;
+
+    public Question() {
     }
 
-    public Question(){}
-
-    public String getQues() {
-        return ques;
+    public Question(String question, String option1, String option2, String option3,
+                    int answerNr, String difficulty, int categoryID) {
+        this.question = question;
+        this.option1 = option1;
+        this.option2 = option2;
+        this.option3 = option3;
+        this.answerNr = answerNr;
+        this.difficulty = difficulty;
+        this.categoryID = categoryID;
     }
 
-    public String getAns_a() {
-        return ans_a;
+    protected Question(Parcel in) {
+        id = in.readInt();
+        question = in.readString();
+        option1 = in.readString();
+        option2 = in.readString();
+        option3 = in.readString();
+        answerNr = in.readInt();
+        difficulty = in.readString();
+        categoryID = in.readInt();
     }
 
-    public String getAns_b() {
-        return ans_b;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(question);
+        dest.writeString(option1);
+        dest.writeString(option2);
+        dest.writeString(option3);
+        dest.writeInt(answerNr);
+        dest.writeString(difficulty);
+        dest.writeInt(categoryID);
     }
 
-    public String getAns_c() {
-        return ans_c;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public String getAns_d() {
-        return ans_d;
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
+
+    public int getId() {
+        return id;
     }
 
-    public String getAns_true() {
-        return ans_true;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setQues(String ques) {
-        this.ques = ques;
+    public String getQuestion() {
+        return question;
     }
 
-    public void setAns_a(String ans_a) {
-        this.ans_a = ans_a;
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
-    public void setAns_b(String ans_b) {
-        this.ans_b = ans_b;
+    public String getOption1() {
+        return option1;
     }
 
-    public void setAns_c(String ans_c) {
-        this.ans_c = ans_c;
+    public void setOption1(String option1) {
+        this.option1 = option1;
     }
 
-    public void setAns_d(String ans_d) {
-        this.ans_d = ans_d;
+    public String getOption2() {
+        return option2;
     }
 
-    public void setAns_true(String ans_true) {
-        this.ans_true = ans_true;
+    public void setOption2(String option2) {
+        this.option2 = option2;
+    }
+
+    public String getOption3() {
+        return option3;
+    }
+
+    public void setOption3(String option3) {
+        this.option3 = option3;
+    }
+
+    public int getAnswerNr() {
+        return answerNr;
+    }
+
+    public void setAnswerNr(int answerNr) {
+        this.answerNr = answerNr;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    public static String[] getAllDifficultyLevels() {
+        return new String[]{
+                DIFFICULTY_EASY,
+                DIFFICULTY_MEDIUM,
+        };
     }
 }
