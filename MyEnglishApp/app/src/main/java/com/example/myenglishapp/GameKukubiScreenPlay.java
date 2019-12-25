@@ -4,13 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -65,6 +68,9 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        // Tạo luồng lấy data từ firebase
+        getQuestionsFromFirebase();
+
         // Lấy dữ liệu được truyển sang
         Intent intent = getIntent();
         level = intent.getIntExtra("level", 0);
@@ -100,8 +106,7 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
         tm.start();
         setOnClick();
 
-        // Tạo luồng lấy data từ firebase
-        getQuestionsFromFirebase();
+
     }
 
     private void mapping()
@@ -270,17 +275,19 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
             public void onClick(View v) {
                 if (ans_a.equals(ans_true))
                 {
-                    Toast.makeText(GameKukubiScreenPlay.this,"Ir's correct", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GameKukubiScreenPlay.this,"It's correct", Toast.LENGTH_SHORT).show();
                     setDataForGameBoard();
-                    if (!mediaPlayer.isPlaying()) mediaPlayer.start();
+                    if (mediaPlayer != null && !mediaPlayer.isPlaying() ) mediaPlayer.start();
                     tm.start();
+                    dialog.dismiss();
                 }
                 else
                 {
-                    Toast.makeText(GameKukubiScreenPlay.this,"Ir's incorrect. GAME OVER !!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(GameKukubiScreenPlay.this,"It's incorrect. GAME OVER !!!", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
                     gameOver();
                 }
-                dialog.dismiss();
+
             }
         });
 
@@ -289,17 +296,19 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
             public void onClick(View v) {
                 if (ans_b == ans_true)
                 {
-                    Toast.makeText(GameKukubiScreenPlay.this,"Ir's correct", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GameKukubiScreenPlay.this,"It's correct", Toast.LENGTH_SHORT).show();
                     setDataForGameBoard();
-                    if (!mediaPlayer.isPlaying()) mediaPlayer.start();
+                    if (mediaPlayer != null && !mediaPlayer.isPlaying() ) mediaPlayer.start();
                     tm.start();
+                    dialog.dismiss();
                 }
                 else
                 {
-                    Toast.makeText(GameKukubiScreenPlay.this,"Ir's incorrect. GAME OVER !!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(GameKukubiScreenPlay.this,"It's incorrect. GAME OVER !!!", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
                     gameOver();
                 }
-                dialog.dismiss();
+
             }
         });
 
@@ -308,17 +317,19 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
             public void onClick(View v) {
                 if (ans_c == ans_true)
                 {
-                    Toast.makeText(GameKukubiScreenPlay.this,"Ir's correct", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GameKukubiScreenPlay.this,"It's correct", Toast.LENGTH_SHORT).show();
                     setDataForGameBoard();
-                    if (!mediaPlayer.isPlaying()) mediaPlayer.start();
+                    if (mediaPlayer != null && !mediaPlayer.isPlaying() ) mediaPlayer.start();
                     tm.start();
+                    dialog.dismiss();
                 }
                 else
                 {
-                    Toast.makeText(GameKukubiScreenPlay.this,"Ir's incorrect. GAME OVER !!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(GameKukubiScreenPlay.this,"It's incorrect. GAME OVER !!!", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
                     gameOver();
                 }
-                dialog.dismiss();
+
             }
         });
 
@@ -327,17 +338,19 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
             public void onClick(View v) {
                 if (ans_d == ans_true)
                 {
-                    Toast.makeText(GameKukubiScreenPlay.this,"Ir's correct", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GameKukubiScreenPlay.this,"It's correct", Toast.LENGTH_SHORT).show();
                     setDataForGameBoard();
-                    if (!mediaPlayer.isPlaying()) mediaPlayer.start();
+                    if (mediaPlayer != null && !mediaPlayer.isPlaying() ) mediaPlayer.start();
                     tm.start();
+                    dialog.dismiss();
                 }
                 else
                 {
-                    Toast.makeText(GameKukubiScreenPlay.this,"Ir's incorrect. GAME OVER !!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(GameKukubiScreenPlay.this,"It's incorrect. GAME OVER !!!", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
                     gameOver();
                 }
-                dialog.dismiss();
+
             }
         });
 
@@ -350,8 +363,37 @@ public class GameKukubiScreenPlay extends AppCompatActivity {
         {
             myRef.child("bestscore").setValue(score);
         }
-        mediaPlayer.release();
-        mediaPlayer = null;
+        if (mediaPlayer != null)
+        {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (mediaPlayer != null) mediaPlayer.pause();
+        tm.cancel();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.back_game)
+                .setPositiveButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (mediaPlayer != null) mediaPlayer.pause();
+                        tm.start();
+                    }
+                })
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+        ;
+
+        builder.show();
     }
 }

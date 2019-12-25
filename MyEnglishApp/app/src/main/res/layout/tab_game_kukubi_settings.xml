@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:minWidth="150dp"
     >
 
     <LinearLayout
@@ -56,8 +57,8 @@
 
     <Button
         android:id="@+id/btn_ok_settings"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:text="OK"
         android:textSize="10dp"

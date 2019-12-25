@@ -29,8 +29,8 @@ public class GameKukubiMenu extends AppCompatActivity {
 
     Button btn_play, btn_settings, btn_best_score;
 
-    int level, music;
-
+    static int level, music;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +41,9 @@ public class GameKukubiMenu extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        getDataSettingsFromFirebase();
         anhXa();
         addEventClickMenu();
-
-        getDataSettingsFromFirebase();
     }
 
     private void anhXa()
@@ -52,6 +51,29 @@ public class GameKukubiMenu extends AppCompatActivity {
         btn_play = (Button) findViewById(R.id.btn_play);
         btn_settings = (Button) findViewById(R.id.btn_settings);
         btn_best_score = (Button) findViewById(R.id.btn_best_score);
+    }
+
+    private void getDataSettingsFromFirebase()
+    {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        DataSnapshot settings = dataSnapshot.child("settings");
+
+                        level = Integer.parseInt(settings.child("level").getValue().toString());
+                        music = Integer.parseInt(settings.child("music").getValue().toString());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        }).start();
     }
 
     private void addEventClickMenu()
@@ -69,7 +91,7 @@ public class GameKukubiMenu extends AppCompatActivity {
         btn_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog dialog  = new Dialog(GameKukubiMenu.this);
+                dialog  = new Dialog(GameKukubiMenu.this);
                 dialog.setContentView(R.layout.tab_game_kukubi_settings);
                 dialog.setTitle("SETTINGS");
 
@@ -82,6 +104,7 @@ public class GameKukubiMenu extends AppCompatActivity {
                 {
                     cb_music.setChecked(true);
                 }
+                Log.d("level", level + " | " + music);
 
                 btn_ok_settings.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -131,24 +154,6 @@ public class GameKukubiMenu extends AppCompatActivity {
 
                     }
                 });
-            }
-        });
-    }
-
-    private void getDataSettingsFromFirebase()
-    {
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                DataSnapshot settings = dataSnapshot.child("settings");
-
-                level = Integer.parseInt(settings.child("level").getValue().toString());
-                music = Integer.parseInt(settings.child("music").getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
