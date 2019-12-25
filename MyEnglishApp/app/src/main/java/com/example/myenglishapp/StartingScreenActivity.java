@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
@@ -33,6 +34,9 @@ public class StartingScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starting_screen);
 
+        ActionBar ab = getSupportActionBar();
+        //Hiện nút back
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textViewHighscore = findViewById(R.id.text_view_highscore);
         spinnerCategory = findViewById(R.id.spinner_category);
         spinnerDifficulty = findViewById(R.id.spinner_difficulty);
@@ -110,5 +114,12 @@ public class StartingScreenActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(KEY_HIGHSCORE, highscore);
         editor.apply();
+    }
+
+    //back
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

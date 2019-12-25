@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -61,6 +62,9 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        ActionBar ab = getSupportActionBar();
+        //Hiện nút back
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textViewQuestion = findViewById(R.id.text_view_question);
         textViewScore = findViewById(R.id.text_view_score);
         textViewQuestionCount = findViewById(R.id.text_view_question_count);
@@ -259,5 +263,10 @@ public class QuizActivity extends AppCompatActivity {
         outState.putLong(KEY_MILLIS_LEFT, timeLeftInMillis);
         outState.putBoolean(KEY_ANSWERED, answered);
         outState.putParcelableArrayList(KEY_QUESTION_LIST, questionList);
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
