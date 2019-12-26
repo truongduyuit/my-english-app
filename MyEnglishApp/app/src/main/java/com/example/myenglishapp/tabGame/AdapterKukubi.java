@@ -1,4 +1,4 @@
-package com.example.myenglishapp;
+package com.example.myenglishapp.tabGame;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.myenglishapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +37,7 @@ public class AdapterKukubi extends ArrayAdapter<String> {
 
         if (data != null && data.size() > 0)
         {
-            com.example.myenglishapp.GameKukubiColorBox item = (com.example.myenglishapp.GameKukubiColorBox)row.findViewById(R.id.box_kukubi);
+            GameKukubiColorBox item = (GameKukubiColorBox)row.findViewById(R.id.box_kukubi);
             item.setBackgroundColor(Color.parseColor(data.get(position)));
         }
 

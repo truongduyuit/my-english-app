@@ -3,10 +3,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.myenglishapp.GameKukubiColorBox
+    <com.example.myenglishapp.tabGame.GameKukubiColorBox
         android:id="@+id/box_kukubi"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
+        android:layout_margin="3dp"
         />
 </LinearLayout>
