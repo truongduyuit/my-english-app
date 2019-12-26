@@ -1,4 +1,4 @@
-package com.example.myenglishapp;
+package com.example.myenglishapp.tabGame;
 
 public class QuestionG { private String ques;
     private String ans_a;

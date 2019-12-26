@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.myenglishapp.tabGame.TabGameFragment;
 import com.example.myenglishapp.tabGrammar.TabGrammarFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

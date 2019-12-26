@@ -1,4 +1,4 @@
-package com.example.myenglishapp;
+package com.example.myenglishapp.tabGame;
 
 public class TabGameItem {
     private String name;

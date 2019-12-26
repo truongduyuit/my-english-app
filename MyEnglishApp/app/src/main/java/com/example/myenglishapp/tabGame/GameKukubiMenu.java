@@ -1,4 +1,4 @@
-package com.example.myenglishapp;
+package com.example.myenglishapp.tabGame;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -6,8 +6,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.example.myenglishapp.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +35,7 @@ public class GameKukubiMenu extends AppCompatActivity {
 
     static int level, music;
     Dialog dialog;
+    String bestScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,11 @@ public class GameKukubiMenu extends AppCompatActivity {
         // Ẩn action bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        if (!isConnected(GameKukubiMenu.this))
+        {
+            Toast.makeText(this, "Bạn cần mở internet để kết nối firebase", Toast.LENGTH_LONG).show();
+        }
 
         getDataSettingsFromFirebase();
         anhXa();
@@ -51,6 +61,8 @@ public class GameKukubiMenu extends AppCompatActivity {
         btn_play = (Button) findViewById(R.id.btn_play);
         btn_settings = (Button) findViewById(R.id.btn_settings);
         btn_best_score = (Button) findViewById(R.id.btn_best_score);
+
+        bestScore = "";
     }
 
     private void getDataSettingsFromFirebase()
@@ -62,9 +74,11 @@ public class GameKukubiMenu extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         DataSnapshot settings = dataSnapshot.child("settings");
-
                         level = Integer.parseInt(settings.child("level").getValue().toString());
                         music = Integer.parseInt(settings.child("music").getValue().toString());
+
+                        DataSnapshot data = dataSnapshot.child("bestscore");
+                        bestScore = data.getValue().toString();
                     }
 
                     @Override
@@ -131,30 +145,56 @@ public class GameKukubiMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                myRef.addValueEventListener(new ValueEventListener() {
+
+                if (!isConnected(GameKukubiMenu.this))
+                {
+                    if (bestScore.equals("")) bestScore = "" +0;
+                }
+                else
+                {
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            DataSnapshot data = dataSnapshot.child("bestscore");
+                            bestScore = data.getValue().toString();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(GameKukubiMenu.this);
+                dialog.setTitle("Điểm cao nhất");
+                dialog.setMessage(bestScore);
+                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        DataSnapshot data = dataSnapshot.child("bestscore");
-                        String bestScore = data.getValue().toString();
-
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(GameKukubiMenu.this);
-                        dialog.setTitle("Điểm cao nhất");
-                        dialog.setMessage(bestScore);
-                        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                        dialog.show();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
                 });
+                dialog.show();
             }
         });
+    }
+
+    public boolean isConnected(Context context) {
+
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netinfo = cm.getActiveNetworkInfo();
+
+        if (netinfo != null && netinfo.isConnectedOrConnecting()) {
+            android.net.NetworkInfo wifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            android.net.NetworkInfo mobile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+            if((mobile != null && mobile.isConnectedOrConnecting()) || (wifi != null && wifi.isConnectedOrConnecting())) return true;
+            else
+                return false;
+        }
+        else
+            return false;
     }
 }
