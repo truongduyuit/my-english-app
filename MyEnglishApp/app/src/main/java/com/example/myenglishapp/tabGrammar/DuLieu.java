@@ -4,7 +4,10 @@ package com.example.myenglishapp.tabGrammar;
 public class DuLieu {
     public void duLieu(Database database)
     {
-        //database.QuerryData("DROP TABLE  nguphap");
+        try{
+            database.QuerryData("DROP TABLE  nguphap");
+        }
+        catch (Exception e){}
         database.QuerryData("CREATE TABLE nguphap (id INT PRIMARY KEY, ten TEXT, title1 TEXT, noidung1 TEXT, title2 TEXT, noidung2 TEXT, title3 TEXT, noidung3 TEXT, title4 TEXT, noidung4 TEXT, title5 TEXT, noidung5 TEXT, title6 TEXT, noidung6 TEXT);");
         database.QuerryData("INSERT INTO nguphap (id, ten, title1, noidung1, title2, noidung2, title3, noidung3, title4, noidung4, title5, noidung5, title6, noidung6) VALUES (1, 'Chức năng của Danh từ trong câu', '1. (Cụm) Danh từ làm chủ ngữ trong câu', ' Vị trí: Thường sẽ đứng đầu câu, trước động từ được chia ở thì.\n" +
                 "Để biết chủ ngữ ở đâu, chúng ta chỉ cần biết động từ chia thì nằm ở đâu trong câu, thì chủ ngữ sẽ nằm ở trước đó.\n" +
