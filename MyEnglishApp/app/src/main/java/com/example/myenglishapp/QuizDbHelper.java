@@ -183,6 +183,104 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 "morning", "summer", "jacket", 1,
                 Question.DIFFICULTY_EASY, Category.WORD);
         addQuestion(q16);
+        Question q17 = new Question("The mausoleum is ................. by Thien Thu mountain, two towering columns and a vast expanse of water.",
+                "feed", "feeding ", "fed", 3,
+                Question.DIFFICULTY_EASY, Category.TENSE);
+        addQuestion(q17);
+        Question q18 = new Question("Put plants ............... a window so that they will get enough light.",
+                "near to ", "near of ", "next to ", 3,
+                Question.DIFFICULTY_EASY, Category.TENSE);
+        addQuestion(q18);
+        Question q19 = new Question("The ships had their days of …………………. in the 1840s and 1850s.",
+                "glory", "glorious ", "glorify", 1,
+                Question.DIFFICULTY_EASY, Category.TENSE);
+        addQuestion(q19);
+        Question q20 = new Question("Tea loses its flavor quickly …………………… in the hold of a vessel",
+                "when storing ", "when stored ", "stored ", 2,
+                Question.DIFFICULTY_EASY, Category.TENSE);
+        addQuestion(q20);
+        Question q21 = new Question("Earl was one of the first American artists …………………. landscapes.",
+                "to paint", "painted", "painting ", 1,
+                Question.DIFFICULTY_EASY, Category.TENSE);
+        addQuestion(q21);
+        Question q22 = new Question("No one has been able to satisfactorily explain how or ………… The Moon sporadically sparks",
+                "when", "what ", "why ", 3,
+                Question.DIFFICULTY_EASY, Category.TENSE);
+        addQuestion(q22);
+        Question q23 = new Question("The basic fiber-optics system is called a fiberscope, ………… Consists of two bundles of fibers.",
+                "which", "where", "what", 1,
+                Question.DIFFICULTY_EASY, Category.WORD);
+        addQuestion(q23);
+        Question q24 = new Question(". ............... his highly individual conceptions of music and chaos, John Cage became a leading figure in avant-garde music.",
+                "Due to", "That", "Because from ", 1,
+                Question.DIFFICULTY_EASY, Category.WORD);
+        addQuestion(q24);
+        Question q25 = new Question("On the slope of Long's Peak in Colorado ................... the ruin of a gigantic tree.",
+                "lies", "lie", "that lies ", 1,
+                Question.DIFFICULTY_EASY, Category.WORD);
+        addQuestion(q25);
+        Question q26 = new Question("The earth spins on its axis and ................... 23 hours, 56 minutes and 4.09\n" +
+                "seconds for one complete rotation. \n",
+                "need", "needing ", "needs", 3,
+                Question.DIFFICULTY_EASY, Category.WORD);
+        addQuestion(q26);
+        Question q27 = new Question("It is earth's gravity that ................... people their weight.",
+                "gives", "give", "given", 1,
+                Question.DIFFICULTY_EASY, Category.WORD);
+        addQuestion(q27);
+        Question q = new Question("A dolphin six ................... length can move as fast as most ships.",
+                "foot in ", "feet in ", "foot of ", 2,
+                Question.DIFFICULTY_EASY, Category.WORD);
+        addQuestion(q);
+        Question q28 = new Question("With new technology, cameras can take pictures of underwater valleys................... color. ",
+                "for ", "in ", "within", 1,
+                Question.DIFFICULTY_MEDIUM, Category.WORD);
+        addQuestion(q28);
+        Question q29 = new Question(".................. actress's life is in many ways unlike that of other women.",
+                "An ", "A", "As the", 1,
+                Question.DIFFICULTY_MEDIUM, Category.WORD);
+        addQuestion(q29);
+        Question q30 = new Question("About 20 miles from Boston, .................. a little town named Concord that has a rich history.",
+                "has", "there are", "there is", 3,
+                Question.DIFFICULTY_MEDIUM, Category.WORD);
+        addQuestion(q30);
+        Question q31 = new Question("They share the housework …..................... between them.",
+                "equally ", "equal", "and equal", 1,
+                Question.DIFFICULTY_MEDIUM, Category.WORD);
+        addQuestion(q31);
+        Question q32 = new Question("A well-known large natural lake is Lake Tahoe, ................. straddles the California-Nevada border.",
+                "and", "which ", "since ", 2,
+                Question.DIFFICULTY_MEDIUM, Category.WORD);
+        addQuestion(q32);
+        Question q33 = new Question("Physical fitness exercises can cause injuries ................. the participants are not careful.",
+                "that ", "to", "if", 3,
+                Question.DIFFICULTY_MEDIUM, Category.WORD);
+        addQuestion(q33);
+        Question q34 = new Question("It is gravity ................. objects toward the earth. ",
+                "pull", "that pulls ", "to pull", 2,
+                Question.DIFFICULTY_MEDIUM, Category.TENSE);
+        addQuestion(q34);
+        Question q35 = new Question("Using a globe can be ................. it is educational. ",
+                "enjoyable", "to enjoy as", "as enjoyable as", 3,
+                Question.DIFFICULTY_MEDIUM, Category.TENSE);
+        addQuestion(q35);
+        Question q36 = new Question("Each mediocre book we read means one less great book that we would otherwise have a chance ..................",
+                "to read", "read", "reading", 1,
+                Question.DIFFICULTY_MEDIUM, Category.TENSE);
+        addQuestion(q36);
+        Question q37 = new Question("Most accidents in the home can be prevented by ................. elimination of hazards.",
+                "the", "that", "there is a", 1,
+                Question.DIFFICULTY_MEDIUM, Category.TENSE);
+        addQuestion(q37);
+        Question q38 = new Question("Because aluminum is lighter and cheaper ............., it is frequently used for high-tension power transmission.",
+                "as copper", "than copper ", "for copper", 1,
+                Question.DIFFICULTY_MEDIUM, Category.TENSE);
+        addQuestion(q38);
+        Question q39 = new Question("............. is no way to tell the exact number of heroin addicts in the United States",
+                "It", "There ", "What ", 1,
+                Question.DIFFICULTY_MEDIUM, Category.TENSE);
+        addQuestion(q39);
+
     }
 
     public ArrayList<Question> getAllQuestions() {
